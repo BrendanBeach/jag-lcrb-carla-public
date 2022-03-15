@@ -159,7 +159,6 @@
     <h3>Police Authority</h3>
     <p>{{application?.policeAccount?.name}}<br>
       {{application?.policeAccount?.contactPhone | mask: "(000) 000-0000"}}<br>
-      {{application?.policeAccount?.contactEmail}}
     </p>
   </mat-card>
   </div>
@@ -304,7 +303,7 @@
             </div>
             <hr>
             <div class="d-flex">
-                <label>Permit Category</label> <span>{{application?.privateOrPublic}}</span>
+                <label>Permit Category</label> <span>{{SummaryComponent.getPermitCategoryLabel(application?.privateOrPublic)}}</span>
             </div>
             <hr>
             <div class="d-flex">

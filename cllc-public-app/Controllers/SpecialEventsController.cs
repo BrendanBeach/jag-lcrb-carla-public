@@ -288,7 +288,7 @@ namespace Gov.Lclb.Cllb.Public.Controllers
             eligibilityInfo += $"<tr><th class='heading'>Address:</th><td class='field'>{HttpUtility.HtmlEncode(specialEvent.AdoxioHostorganisationaddress)}</td></tr>";
             eligibilityInfo += $"<tr><th class='heading'>Occasion of Event:</th><td class='field'>{HttpUtility.HtmlEncode(specialEvent.AdoxioSpecialeventdescripton)}</td></tr>";
             eligibilityInfo += $"<tr><th class='heading'>Licence Already Exists At Location?:</th><td class='field'>{(ViewModels.LicensedSEPLocationValue?)specialEvent.AdoxioIslocationlicensedos}</td></tr>";
-            eligibilityInfo += $"<tr><th class='heading'>Permit Category:</th><td class='field'>{(ViewModels.SEPPublicOrPrivate?)specialEvent.AdoxioPrivateorpublic}</td></tr>"; // to do
+            eligibilityInfo += $"<tr><th class='heading'>Permit Category:</th><td class='field'>{getPermitCategoryLabel((ViewModels.SEPPublicOrPrivate?)specialEvent.AdoxioPrivateorpublic)}</td></tr>"; // to do
             eligibilityInfo += $"<tr><th class='heading'>Public Property:</th><td class='field'>{specialEvent.AdoxioIsonpublicproperty}</td></tr>";
 
             eligibilityInfo += "</table>";
@@ -544,6 +544,27 @@ namespace Gov.Lclb.Cllb.Public.Controllers
             //return new UnauthorizedResult();
         }
 
+        private string getPermitCategoryLabel(ViewModels.SEPPublicOrPrivate? value) {
+            string test = value?.ToString();
+            var res = "";
+            switch (test) {
+                case "Members":
+                    res = "Private – An organization's members or staff, invited guests and ticket holders";
+                    break;
+                case "Family":
+                    res = "Private – Family and invited friends only";
+                    break;
+
+                case "Hobbyist":
+                    res = "Private – Hobbyist competition";
+                    break;
+                case "Anyone":
+                    res = "Public – Open to the general public or anyone who wishes to participate or buy a ticket";
+                    break;
+            }
+            return res;
+        }
+
         /// <summary>
         ///     endpoint for a permit pdf
         /// </summary>
@@ -564,7 +585,7 @@ namespace Gov.Lclb.Cllb.Public.Controllers
             // if special event is not issued...
             if (!issued)
             {
-                return null;
+                return NotFound();
             }
 
             var issuedDateParam = "";
@@ -610,7 +631,7 @@ namespace Gov.Lclb.Cllb.Public.Controllers
             eligibilityInfo += $"<tr><th class='heading'>Address:</th><td class='field'>{HttpUtility.HtmlEncode(specialEvent.AdoxioHostorganisationaddress)}</td></tr>";
             eligibilityInfo += $"<tr><th class='heading'>Occasion of Event:</th><td class='field'>{HttpUtility.HtmlEncode(specialEvent.AdoxioSpecialeventdescripton)}</td></tr>";
             eligibilityInfo += $"<tr><th class='heading'>Licence Already Exists At Location?:</th><td class='field'>{(ViewModels.LicensedSEPLocationValue?)specialEvent.AdoxioIslocationlicensedos}</td></tr>";
-            eligibilityInfo += $"<tr><th class='heading'>Permit Category:</th><td class='field'>{(ViewModels.SEPPublicOrPrivate?)specialEvent.AdoxioPrivateorpublic}</td></tr>"; // to do
+            eligibilityInfo += $"<tr><th class='heading'>Permit Category:</th><td class='field'>{getPermitCategoryLabel((ViewModels.SEPPublicOrPrivate?)specialEvent.AdoxioPrivateorpublic)}</td></tr>"; // to do
             eligibilityInfo += $"<tr><th class='heading'>Public Property:</th><td class='field'>{specialEvent.AdoxioIsonpublicproperty}</td></tr>";
             eligibilityInfo += "</table>";
 
@@ -902,23 +923,29 @@ namespace Gov.Lclb.Cllb.Public.Controllers
                     foreach (var schedule in schedules)
                     {
                         var parentLocation = locations.Where(loc => loc.AdoxioSpecialeventlocationid == schedule._adoxioSpecialeventlocationidValue).FirstOrDefault();
-                        if (parentLocation.AdoxioSpecialeventlocationSchedule == null)
+                        if (parentLocation != null)
                         {
-                            parentLocation.AdoxioSpecialeventlocationSchedule = new List<MicrosoftDynamicsCRMadoxioSpecialeventschedule>();
+                            if (parentLocation.AdoxioSpecialeventlocationSchedule == null)
+                            {
+                                parentLocation.AdoxioSpecialeventlocationSchedule = new List<MicrosoftDynamicsCRMadoxioSpecialeventschedule>();
+                            }
+                            parentLocation.AdoxioSpecialeventlocationSchedule.Add(schedule);
                         }
-                        parentLocation.AdoxioSpecialeventlocationSchedule.Add(schedule);
+                        
                     }
 
                     foreach (var area in areas)
                     {
                         var parentLocation = locations.Where(loc => loc.AdoxioSpecialeventlocationid == area._adoxioSpecialeventlocationidValue).FirstOrDefault();
-                        if (parentLocation.AdoxioSpecialeventlocationLicencedareas == null)
+                        if (parentLocation != null)
                         {
-                            parentLocation.AdoxioSpecialeventlocationLicencedareas = new List<MicrosoftDynamicsCRMadoxioSpecialeventlicencedarea>();
-                        }
-                        parentLocation.AdoxioSpecialeventlocationLicencedareas.Add(area);
+                            if (parentLocation.AdoxioSpecialeventlocationLicencedareas == null)
+                            {
+                                parentLocation.AdoxioSpecialeventlocationLicencedareas = new List<MicrosoftDynamicsCRMadoxioSpecialeventlicencedarea>();
+                            }
+                            parentLocation.AdoxioSpecialeventlocationLicencedareas.Add(area);
+                        }                        
                     }
-
                 }
                 catch (HttpOperationException e)
                 {
@@ -1355,6 +1382,7 @@ namespace Gov.Lclb.Cllb.Public.Controllers
             result.LocalId = specialEvent.LocalId;
             return new JsonResult(result);
         }
+
 
         private ItemsToDelete GetItemsToDelete(ViewModels.SpecialEvent updateEvent, MicrosoftDynamicsCRMadoxioSpecialevent existingEvent)
         {
