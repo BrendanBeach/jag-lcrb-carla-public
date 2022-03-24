@@ -31,7 +31,7 @@
     }
   },
   "angularCompilerOptions": {
-    "enableIvy": false
+
   },
   "files": [
     "main.ts",

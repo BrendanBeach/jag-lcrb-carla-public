@@ -261,7 +261,7 @@
                                 <mat-accordion>
                                     <mat-expansion-panel [expanded]="true" [formGroupName]="k" (opened)="isOpen = true"
                                     (closed)="isOpen = false"
-                                        *ngFor="let item of getEventDates(i).controls; let isOpen = true; let k = index;">
+                                        *ngFor="let item of getEventDates(i).controls; let opened of isOpen; let k = index;">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title *ngIf="!isOpen">
                                                 Event Date: {{ item.get('eventDate')?.value | date}}
