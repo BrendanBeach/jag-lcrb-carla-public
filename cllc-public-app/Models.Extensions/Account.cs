@@ -116,74 +116,74 @@ namespace Gov.Lclb.Cllb.Public.Models
 
             if (copyIfNull || (!copyIfNull && fromVM.mailingAddressName != null))
             {
-                toDynamics.Address1Name = fromVM.mailingAddressName;
+                toDynamics.Address2Name = fromVM.mailingAddressName;
             }
             if (copyIfNull || (!copyIfNull && fromVM.mailingAddressStreet != null))
             {
-                toDynamics.Address1Line1 = fromVM.mailingAddressStreet;
+                toDynamics.Address2Line1 = fromVM.mailingAddressStreet;
             }
             if (copyIfNull || (!copyIfNull && fromVM.mailingAddressStreet2 != null))
             {
-                toDynamics.Address1Line2 = fromVM.mailingAddressStreet2;
+                toDynamics.Address2Line2 = fromVM.mailingAddressStreet2;
             }
             if (copyIfNull || (!copyIfNull && fromVM.mailingAddressCity != null))
             {
-                toDynamics.Address1City = fromVM.mailingAddressCity;
+                toDynamics.Address2City = fromVM.mailingAddressCity;
             }
             if (copyIfNull || (!copyIfNull && fromVM.mailingAddressCountry != null))
             {
-                toDynamics.Address1Country = fromVM.mailingAddressCountry;
+                toDynamics.Address2Country = fromVM.mailingAddressCountry;
             }
-            if (copyIfNull || (!copyIfNull && fromVM.mailingAddressCountry != null))
+            if (copyIfNull || (!copyIfNull && fromVM.mailingAddressProvince != null))
             {
-                toDynamics.Address1Stateorprovince = fromVM.mailingAddressProvince;
+                toDynamics.Address2Stateorprovince = fromVM.mailingAddressProvince;
             }
             if (copyIfNull || (!copyIfNull && fromVM.mailingAddressPostalCode != null))
             {
                 if (fromVM.mailingAddressPostalCode != null)
                 {
-                    toDynamics.Address1Postalcode = fromVM.mailingAddressPostalCode.Replace(" ", "");
+                    toDynamics.Address2Postalcode = fromVM.mailingAddressPostalCode.Replace(" ", "");
                 }
                 else
                 {
-                    toDynamics.Address1Postalcode = null;
+                    toDynamics.Address2Postalcode = null;
                 }
 
             }
 
             if (copyIfNull || (!copyIfNull && fromVM.physicalAddressName != null))
             {
-                toDynamics.Address2Name = fromVM.physicalAddressName;
+                toDynamics.Address1Name = fromVM.physicalAddressName;
             }
             if (copyIfNull || (!copyIfNull && fromVM.physicalAddressStreet != null))
             {
-                toDynamics.Address2Line1 = fromVM.physicalAddressStreet;
+                toDynamics.Address1Line1 = fromVM.physicalAddressStreet;
             }
             if (copyIfNull || (!copyIfNull && fromVM.physicalAddressStreet2 != null))
             {
-                toDynamics.Address2Line2 = fromVM.physicalAddressStreet2;
+                toDynamics.Address1Line2 = fromVM.physicalAddressStreet2;
             }
             if (copyIfNull || (!copyIfNull && fromVM.physicalAddressCity != null))
             {
-                toDynamics.Address2City = fromVM.physicalAddressCity;
+                toDynamics.Address1City = fromVM.physicalAddressCity;
             }
             if (copyIfNull || (!copyIfNull && fromVM.physicalAddressCountry != null))
             {
-                toDynamics.Address2Country = fromVM.physicalAddressCountry;
+                toDynamics.Address1Country = fromVM.physicalAddressCountry;
             }
-            if (copyIfNull || (!copyIfNull && fromVM.physicalAddressCountry != null))
+            if (copyIfNull || (!copyIfNull && fromVM.physicalAddressProvince != null))
             {
-                toDynamics.Address2Stateorprovince = fromVM.physicalAddressProvince;
+                toDynamics.Address1Stateorprovince = fromVM.physicalAddressProvince;
             }
             if (copyIfNull || (!copyIfNull && fromVM.physicalAddressPostalCode != null))
             {
                 if (fromVM.physicalAddressPostalCode != null)
                 {
-                    toDynamics.Address2Postalcode = fromVM.physicalAddressPostalCode.Replace(" ", "");
+                    toDynamics.Address1Postalcode = fromVM.physicalAddressPostalCode.Replace(" ", "");
                 }
                 else
                 {
-                    toDynamics.Address2Postalcode = null;
+                    toDynamics.Address1Postalcode = null;
                 }
 
             }
@@ -251,23 +251,23 @@ namespace Gov.Lclb.Cllb.Public.Models
                 accountVM.contactEmail = account.Emailaddress1;
                 accountVM.contactPhone = account.Telephone1;
 
-                accountVM.mailingAddressName = account.Address1Name;
-                accountVM.mailingAddressStreet = account.Address1Line1;
-                accountVM.mailingAddressStreet2 = account.Address1Line2;
-                accountVM.mailingAddressCity = account.Address1City;
-                accountVM.mailingAddressCountry = account.Address1Country;
-                accountVM.mailingAddressProvince = account.Address1Stateorprovince;
+                accountVM.mailingAddressName = account.Address2Name;
+                accountVM.mailingAddressStreet = account.Address2Line1;
+                accountVM.mailingAddressStreet2 = account.Address2Line2;
+                accountVM.mailingAddressCity = account.Address2City;
+                accountVM.mailingAddressCountry = account.Address2Country;
+                accountVM.mailingAddressProvince = account.Address2Stateorprovince;
 
 
-                accountVM.mailingAddressPostalCode = account.Address1Postalcode;
+                accountVM.mailingAddressPostalCode = account.Address2Postalcode;
 
-                accountVM.physicalAddressName = account.Address2Name;
-                accountVM.physicalAddressStreet = account.Address2Line1;
-                accountVM.physicalAddressStreet2 = account.Address2Line2;
-                accountVM.physicalAddressCity = account.Address2City;
-                accountVM.physicalAddressCountry = account.Address2Country;
-                accountVM.physicalAddressProvince = account.Address2Stateorprovince;
-                accountVM.physicalAddressPostalCode = account.Address2Postalcode;
+                accountVM.physicalAddressName = account.Address1Name;
+                accountVM.physicalAddressStreet = account.Address1Line1;
+                accountVM.physicalAddressStreet2 = account.Address1Line2;
+                accountVM.physicalAddressCity = account.Address1City;
+                accountVM.physicalAddressCountry = account.Address1Country;
+                accountVM.physicalAddressProvince = account.Address1Stateorprovince;
+                accountVM.physicalAddressPostalCode = account.Address1Postalcode;
 
                 accountVM.TermsOfUseAccepted = account.AdoxioTermsofuseaccepted;
                 accountVM.TermsOfUseAcceptedDate = account.AdoxioTermsofuseaccepteddate;
