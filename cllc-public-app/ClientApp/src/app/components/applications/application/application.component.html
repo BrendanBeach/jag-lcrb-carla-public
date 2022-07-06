@@ -776,14 +776,40 @@
       </section>
     </section>
 
-    <section>
-      <div *ngIf="application?.applicationType?.name.includes('Tied House Exemption Application')">
-        <h3 class="blue-header">Tied House Manufacturer Licence</h3>
-        <app-field [required]="false">
-          <input class="form-control" style="width: 500px;" type="text" [readonly]="true"
-                 formControlName="relatedLicenceNumber">
-        </app-field>
-      </div>
+    <!-- Federal Production Site -->
+    <section class="ngtest-property-details" *ngIf="application?.applicationType?.showPropertyDetails">
+      <h3 class="blue-header">FEDERAL PRODUCTION SITE DETAILS</h3>
+      <section class="padded-section content-bottom">
+        <section>
+          <label>Federal Licence Number</label>
+          <label *ngIf="application?.applicationType?.federalLicenceNumber !== FormControlState.ReadOnly" class="error-states ng-star-inserted">*</label>
+          <input class="form-control" style="width: 500px;" type="text"
+                [readonly]="application?.applicationType?.federalLicenceNumber === FormControlState.ReadOnly"
+                formControlName="federalLicenceNumber" id="federalLicenceNumber">
+        </section>
+        <section>
+            <h3 class="blue-header">ADDRESS</h3>
+            <p>The address of the Federal Production Site:</p>
+            <address class="row">
+              <app-field class="col-md-12 col-xs-12" label="Address" [required]="true" [isFullWidth]="true"
+                         [valid]="isValidOrNotTouched('federalProductionAddressStreet')" errorMessage="Please enter the street address">
+                <input class="form-control" type="text" autocomplete="address-line1"
+                  formControlName="federalProductionAddressStreet" id="federalProductionAddressStreet">
+              </app-field>
+              <app-field class="col-md-4 col-xs-12" label="City" [required]="true" [isFullWidth]="true">
+                <input class="form-control" type="text" autocomplete="address-level2"
+                       formControlName="federalProductionAddressCity" id="federalProductionAddressCity">
+              </app-field>
+              <app-field class="col-md-4 col-xs-12" label="Province" [isFullWidth]="true">
+                <input class="form-control" autocomplete="address-level1" readonly type="text"
+                       value="British Columbia">
+              </app-field>          
+              <app-field class="col-md-4 col-xs-12">
+                
+              </app-field>
+            </address>
+        </section>
+      </section>
     </section>
 
 

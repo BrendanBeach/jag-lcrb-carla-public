@@ -36,6 +36,7 @@ export class ApplicationType {
   establishmentName: FormControlState;
   newEstablishmentAddress: FormControlState;
   currentEstablishmentAddress: FormControlState;
+  federalLicenceNumber: FormControlState;
   signage: FormControlState;
   validInterest: FormControlState;
   floorPlan: FormControlState;
